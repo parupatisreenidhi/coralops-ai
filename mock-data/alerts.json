@@ -1,0 +1,62 @@
+[
+  {
+    "id": "alert-001",
+    "source": "PagerDuty",
+    "severity": "critical",
+    "title": "payment-service: error_rate > 30%",
+    "description": "Payment service error rate exceeded 30% threshold for 2 consecutive minutes. Current value: 34.2%",
+    "service": "payment-service",
+    "triggered_at": "2024-01-15T14:32:00Z",
+    "resolved_at": "2024-01-15T15:14:00Z",
+    "policy": "Payment Service SLO - Error Budget",
+    "on_call_notified": ["priya.k"],
+    "escalated": false,
+    "runbook_url": "https://wiki.internal/runbooks/payment-service-errors",
+    "related_incident": "INC-2024-0847"
+  },
+  {
+    "id": "alert-002",
+    "source": "Grafana",
+    "severity": "critical",
+    "title": "payment-service: p99_latency > 10000ms",
+    "description": "P99 latency for payment-service has exceeded 10s. Current value: 12400ms",
+    "service": "payment-service",
+    "triggered_at": "2024-01-15T14:34:00Z",
+    "resolved_at": "2024-01-15T15:14:00Z",
+    "policy": "Payment Latency SLO",
+    "on_call_notified": ["priya.k"],
+    "escalated": false,
+    "runbook_url": "https://wiki.internal/runbooks/payment-latency",
+    "related_incident": "INC-2024-0847"
+  },
+  {
+    "id": "alert-003",
+    "source": "Grafana",
+    "severity": "warning",
+    "title": "payment-service: db_connections_active = pool_max (100/100)",
+    "description": "DB connection pool at maximum capacity. New connections being rejected.",
+    "service": "payment-service",
+    "triggered_at": "2024-01-15T14:31:12Z",
+    "resolved_at": "2024-01-15T15:14:00Z",
+    "policy": "DB Pool Saturation",
+    "on_call_notified": ["priya.k"],
+    "escalated": false,
+    "runbook_url": "https://wiki.internal/runbooks/db-connection-pool",
+    "related_incident": "INC-2024-0847"
+  },
+  {
+    "id": "alert-004",
+    "source": "PagerDuty",
+    "severity": "high",
+    "title": "checkout-service: error_rate > 25%",
+    "description": "Checkout service error rate at 28.1%. Likely caused by payment-service dependency failure.",
+    "service": "checkout-service",
+    "triggered_at": "2024-01-15T14:38:00Z",
+    "resolved_at": "2024-01-15T15:16:00Z",
+    "policy": "Checkout SLO - Error Budget",
+    "on_call_notified": ["priya.k", "omar.k"],
+    "escalated": false,
+    "runbook_url": "https://wiki.internal/runbooks/checkout-cascade",
+    "related_incident": "INC-2024-0846"
+  }
+]

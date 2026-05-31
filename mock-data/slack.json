@@ -1,0 +1,123 @@
+[
+  {
+    "id": "msg-001",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:32:00Z",
+    "user": "pagerduty-bot",
+    "username": "PagerDuty",
+    "text": ":rotating_light: *CRITICAL* — INC-2024-0847 triggered. Payment service error rate above 30%. On-call: @priya.k",
+    "is_bot": true,
+    "reactions": []
+  },
+  {
+    "id": "msg-002",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:33:12Z",
+    "user": "priya.k",
+    "username": "Priya K",
+    "text": "Ack'd. Looking now. Error rate spiking — checking recent deploys.",
+    "is_bot": false,
+    "reactions": [{"emoji": "eyes", "count": 3}]
+  },
+  {
+    "id": "msg-003",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:34:40Z",
+    "user": "priya.k",
+    "username": "Priya K",
+    "text": "payment-service v2.14.3 deployed at 14:28 UTC. Logs show DB connection pool exhausted right after deploy. Correlates with new async pool manager PR from james.",
+    "is_bot": false,
+    "reactions": [{"emoji": "fire", "count": 5}]
+  },
+  {
+    "id": "msg-004",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:35:22Z",
+    "user": "james.wu",
+    "username": "James Wu",
+    "text": "Looking at PR #1284. The async pool manager defaults to pool_size=5 in prod config — should be 50. The old value was 50. This is almost certainly the issue.",
+    "is_bot": false,
+    "reactions": [{"emoji": "white_check_mark", "count": 4}, {"emoji": "facepalm", "count": 2}]
+  },
+  {
+    "id": "msg-005",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:36:00Z",
+    "user": "sarah.m",
+    "username": "Sarah M",
+    "text": "Also - PR #1287 removed the null guard on PaymentProcessor. If the DB connection is null when pool exhausts, that NPE in the logs makes sense now.",
+    "is_bot": false,
+    "reactions": [{"emoji": "100", "count": 3}]
+  },
+  {
+    "id": "msg-006",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:37:00Z",
+    "user": "omar.k",
+    "username": "Omar K",
+    "text": "Checkout is showing timeouts too. 28% error rate on their side. cascade from payment going down.",
+    "is_bot": false,
+    "reactions": []
+  },
+  {
+    "id": "msg-007",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:38:00Z",
+    "user": "priya.k",
+    "username": "Priya K",
+    "text": "Options: (1) patch pool_size config and redeploy, or (2) rollback to v2.14.2. Given severity, recommending rollback. @james.wu agree?",
+    "is_bot": false,
+    "reactions": []
+  },
+  {
+    "id": "msg-008",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T14:38:45Z",
+    "user": "james.wu",
+    "username": "James Wu",
+    "text": "+1 rollback. I'll prepare the config fix for a proper re-deploy with the correct pool_size. ETA 2h for validated fix.",
+    "is_bot": false,
+    "reactions": [{"emoji": "thumbsup", "count": 6}]
+  },
+  {
+    "id": "msg-009",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T15:05:00Z",
+    "user": "priya.k",
+    "username": "Priya K",
+    "text": "Rollback to v2.14.2 initiated.",
+    "is_bot": false,
+    "reactions": []
+  },
+  {
+    "id": "msg-010",
+    "channel": "#incidents",
+    "thread_ts": "1705329120.000001",
+    "timestamp": "2024-01-15T15:13:00Z",
+    "user": "priya.k",
+    "username": "Priya K",
+    "text": ":white_check_mark: Rollback complete. Error rate back to 0.4%. Payment service healthy. Incident mitigation complete. PIR scheduled for tomorrow.",
+    "is_bot": false,
+    "reactions": [{"emoji": "party_parrot", "count": 8}, {"emoji": "white_check_mark", "count": 5}]
+  },
+  {
+    "id": "msg-011",
+    "channel": "#deploys",
+    "thread_ts": "1705327680.000001",
+    "timestamp": "2024-01-15T14:28:00Z",
+    "user": "ci-bot",
+    "username": "CI Bot",
+    "text": ":rocket: Deployed *payment-service v2.14.3* to production. PRs: #1284, #1285, #1287. Deployed by: pipeline. Duration: 4m12s",
+    "is_bot": true,
+    "reactions": []
+  }
+]
